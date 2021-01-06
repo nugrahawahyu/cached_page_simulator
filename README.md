@@ -1,4 +1,4 @@
-# HTML Cache Simulator
+# Cached Page Simulator
 Simulate how a page viewed as a cached page
 
 ## Setup

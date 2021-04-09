@@ -24,8 +24,10 @@ app.get('/', async (req, res) => {
     const [page] = await browser.pages()
     await page.goto(targetUrl, { waitUntil: 'networkidle0' })
     let data = await page.evaluate(() => document.querySelector('*').outerHTML)
-    if (baseTagHref) {
+    if (data.includes('<base ') && baseTagHref) {
       data = data.replace(/<base href=".*">/g, `<base href="${baseTagHref}">`)
+    } else if (baseTagHref) {
+      data = data.replace('<head>', `<head><base href="${baseTagHref}">`)
     }
     res.send(data)
     status = 'success'
